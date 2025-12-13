@@ -14,6 +14,7 @@ correctness, explainability, and hallucination control.
 
 - Semantic retrieval over Markdown documentation using FAISS
 - Conservative answer generation with strict grounding
+- Explicit refusal when information is not present in the documentation
 - Source attribution for every answer
 - Modular ingestion, retrieval, and generation pipeline
 - Fully local and reproducible (no paid APIs)
@@ -22,95 +23,76 @@ correctness, explainability, and hallucination control.
 
 ## 🏗️ Architecture Overview
 
-             ┌─────────────────────┐
-             │  Markdown Docs (.md)│
-             │     data/raw/       │
-             └──────────┬──────────┘
-                        │
-                        ▼
-          ┌────────────────────┐
-          │  Ingestion Pipeline│
-          │  - clean markdown  │
-          │  - chunk by section│
-          └──────────┬─────────┘
-                         │
-                         ▼
-            ┌─────────────────────────┐
-            │  Embedding Generation   │
-            │  SentenceTransformer    │
-            │  (intfloat/e5-base)     │
-            └──────────┬──────────────┘
-                       │
-                       ▼
-      ┌─────────────────────────────────┐
-      │  Vector Index (FAISS)           │
-      │  - cosine similarity search     │
-      │  - embeddings + metadata        │
-      └──────────┬──────────────────────┘
-                 │
-                 ▼
-    ┌─────────────────────────────────────┐
-    │  Query-Time Pipeline                │
-    │  - embed user question              │
-    │  - retrieve top-k relevant chunks   │
-    │  - select most relevant context     │
-    └──────────┬──────────────────────────┘
-               │
-               ▼
- ┌──────────────────────────────────────────┐
- │  Answer Generation (FLAN-T5)             │
- │  - grounded summarization                │
- │  - deterministic decoding                │
- │  - refusal if info not present           │
- └──────────┬──────────────────────────────┘
-            │
-            ▼
-    ┌─────────────────────────┐
-    │  Streamlit UI           │
-    │  - answer               │
-    │  - sources              │
-    │  - debug context view   │
-    └─────────────────────────┘
+```mermaid
+flowchart TD
+    A[Markdown Docs<br/>data/raw/*.md]
+    B[Ingestion Pipeline<br/>• clean markdown<br/>• chunk by section]
+    C[Embedding Generation<br/>SentenceTransformer<br/>intfloat/e5-base]
+    D[Vector Index<br/>FAISS<br/>Cosine Similarity]
+    E[Query-Time Retrieval<br/>• embed query<br/>• top-k search]
+    F[Answer Generation<br/>FLAN-T5<br/>• grounded summarization<br/>• deterministic decoding<br/>• refuse if not found]
+    G[Streamlit UI<br/>• answer<br/>• sources<br/>• debug context]
 
----
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
 
-## 🧪 Example Queries
 
-### Authentication
+⸻
 
-**Question**
+🧪 Example Queries
+
+Authentication
+
+Question
 
 Which authentication method is mentioned?
 
-**Answer**
+Answer
 
 OAuth2 with Password (and hashing), Bearer with JWT tokens.
 
-**Sources**
-- authentication.md
-- dependency_injection.md
+Sources
+	•	authentication.md
+	•	dependency_injection.md
 
----
+⸻
 
-### Presence Query
+Presence Query
 
-**Question**
+Question
 
 Is OAuth2 mentioned in the documentation?
 
-**Answer**
+Answer
 
-Yes.
+Yes. OAuth2 is mentioned and described as part of the authentication flow.
 
-**Sources**
-- authentication.md
+Sources
+	•	authentication.md
 
+⸻
 
----
+Configuration / Behavior
 
-## 🚀 How to Run
+Question
 
-```bash
+Which HTTP header is used for authentication?
+
+Answer
+
+The Authorization HTTP header is used for authentication.
+
+Sources
+	•	authentication.md
+
+⸻
+
+🚀 How to Run
+
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
