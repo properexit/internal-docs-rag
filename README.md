@@ -22,7 +22,6 @@ correctness, explainability, and hallucination control.
 ---
 
 ## 🏗️ Architecture Overview
-
              ┌─────────────────────┐
              │  Markdown Docs (.md) │
              │     data/raw/        │
@@ -72,24 +71,16 @@ correctness, explainability, and hallucination control.
     │  - sources               │
     │  - debug context view    │
     └─────────────────────────┘
-
----
+    ---
 
 ## 🧪 Example Queries
 
-### Authentication
-**Which authentication method is mentioned?**
-**OAuth2 with Password (and hashing), Bearer with JWT tokens.r**
-**authentication.md**
-**dependency_injection.md**
-**# OAuth2 with Password (and hashing), Bearer with JWT tokens[¶](#oauth2-with-password-and-hashing-bearer-with-jwt-tokens "Permanent link"){. preview=""} Now that we have all the security flow, let\'s make the application actually secure, using [JWT]{.abbr title="JSON Web Tokens"} tokens and secure password hashing. This code is something you can actually use in your application, save the password hashes in your database, etc. We are going to start from where we left in the previous chapter and increment it.**
+### 1️⃣ Authentication
 
----
-
-## 🚀 How to Run
-
-### 1. Create a virtual environment
-```bash
+**Question**
+```text
+Which authentication method is mentioned?
+OAuth2 with Password (and hashing), Bearer with JWT tokens.
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
