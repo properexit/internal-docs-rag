@@ -13,8 +13,6 @@ correctness, explainability, and hallucination control.
 ## ✨ Key Features
 
 - Semantic retrieval over Markdown documentation using FAISS
-- Conservative answer generation with strict grounding
-- Explicit refusal when information is not present in the documentation
 - Source attribution for every answer
 - Modular ingestion, retrieval, and generation pipeline
 - Fully local and reproducible (no paid APIs)
@@ -39,80 +37,68 @@ flowchart TD
     D --> E
     E --> F
     F --> G
+```
 
+---
 
-⸻
+## 🧪 Example Queries
 
-🧪 Example Queries
+### Authentication
 
-Authentication
-
-Question
-
+**Question**
+```
 Which authentication method is mentioned?
+```
 
-Answer
-
+**Answer**
+```
 OAuth2 with Password (and hashing), Bearer with JWT tokens.
+```
 
-Sources
-	•	authentication.md
-	•	dependency_injection.md
+**Sources**
+- authentication.md
+- dependency_injection.md
 
-⸻
+---
 
-Presence Query
+### Presence Query
 
-Question
-
+**Question**
+```
 Is OAuth2 mentioned in the documentation?
+```
 
-Answer
-
+**Answer**
+```
 Yes. OAuth2 is mentioned and described as part of the authentication flow.
+```
 
-Sources
-	•	authentication.md
+**Sources**
+- authentication.md
 
-⸻
+---
 
-Configuration / Behavior
+## 🚀 How to Run
 
-Question
-
-Which HTTP header is used for authentication?
-
-Answer
-
-The Authorization HTTP header is used for authentication.
-
-Sources
-	•	authentication.md
-
-⸻
-
-🚀 How to Run
-
+```bash
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python -m src.build_index
 streamlit run app/ui.py
-
-
-⸻
-
-🎯 Design Philosophy
-	•	Retrieval first, generation second
-	•	Prefer extraction over abstraction
-	•	Fail explicitly instead of hallucinating
-	•	Keep the system explainable and debuggable
-	•	Optimize for correctness over creativity
-
-⸻
-
-📄 License
-
-MIT
+```
 
 ---
+
+## 🎯 Design Philosophy
+
+- Retrieval first, generation second
+- Prefer extraction over abstraction
+- Fail explicitly instead of hallucinating
+- Keep the system explainable and debuggable
+
+---
+
+## 📄 License
+
+MIT
