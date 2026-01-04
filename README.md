@@ -10,7 +10,7 @@ correctness, explainability, and hallucination control.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 - Semantic retrieval over Markdown documentation using FAISS
 - Source attribution for every answer
@@ -19,7 +19,7 @@ correctness, explainability, and hallucination control.
 
 ---
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 ```mermaid
 flowchart TD
@@ -41,7 +41,7 @@ flowchart TD
 
 ---
 
-## 🧪 Example Queries
+## Example Queries
 
 ### Authentication
 
@@ -78,7 +78,7 @@ Yes. OAuth2 is mentioned and described as part of the authentication flow.
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ```bash
 python -m venv venv
@@ -90,7 +90,7 @@ streamlit run app/ui.py
 
 ---
 
-## 🎯 Design Philosophy
+## Design Philosophy
 
 - Retrieval first, generation second
 - Prefer extraction over abstraction
@@ -99,6 +99,6 @@ streamlit run app/ui.py
 
 ---
 
-## 📄 License
+## License
 
 MIT
